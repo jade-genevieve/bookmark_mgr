@@ -1,9 +1,11 @@
 class Bookmark
   def self.all
-    [
-      "http://wwww.makersacademy.com",
-      "http://wwww.bbc.com",
-      "http://wwww.google.com",
-    ]
+    if ENV["ENVIRONMENT"] == "test"
+      connection = PG.connect(dbname: "bookmarks_mgr_test")
+    else
+      connection = PG.connect(dbname: "bookmark_mgr")
+    end
+    result = connection.exec ("SELECT * FROM bookmarks;")
+    result.map { |bookmark| bookmark["url"] }
   end
 end
