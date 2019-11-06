@@ -16,3 +16,8 @@ So that I can keep my bookmarks relevant
 I want to delete a bookmark
 ```
 
+```
+As a user
+So I can change a bookmark in Bookmark Manager
+I want to update a bookmark
+```
