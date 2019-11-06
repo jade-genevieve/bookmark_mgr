@@ -1,3 +1,6 @@
+require "pg"
+require "pg"
+
 class Bookmark
   attr_reader :id, :title, :url
 
@@ -27,5 +30,14 @@ class Bookmark
     end
     result = connection.exec ("INSERT INTO bookmarks (title, url) VALUES('#{title}', '#{url}') RETURNING id, url, title;")
     Bookmark.new(id: result[0]["id"], title: result[0]["title"], url: result[0]["url"])
+  end
+
+  def self.delete(id:)
+    if ENV["ENVIRONMENT"] == "test"
+      connection = PG.connect(dbname: "bookmarks_mgr_test")
+    else
+      connection = PG.connect(dbname: "bookmark_mgr")
+    end
+    connection.exec ("DELETE FROM bookmarks WHERE id = #{id}")
   end
 end
