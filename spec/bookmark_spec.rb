@@ -11,7 +11,6 @@ describe Bookmark do
       Bookmark.create(url: "http://www.google.com", title: "Google")
 
       bookmarks = Bookmark.all
-      p bookmarks
 
       expect(bookmarks.length).to eq 3
       expect(bookmarks.first).to be_a Bookmark
@@ -27,7 +26,7 @@ describe Bookmark do
       persisted_data = persisted_data(id: bookmark.id)
 
       expect(bookmark).to be_a Bookmark
-      expect(bookmark.id).to eq persisted_data["id"]
+      expect(bookmark.id).to eq persisted_data.first["id"]
       expect(bookmark.title).to eq "Test Bookmark"
       expect(bookmark.url).to eq "http://www.testbookmark.com"
     end
